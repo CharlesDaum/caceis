@@ -116,7 +116,7 @@ button {
 
 .controls {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 16px;
   border-radius: 22px;
   padding: 18px;
@@ -171,8 +171,8 @@ button:hover {
 .assist-grid {
   display: grid;
   grid-template-columns: 1.15fr 1fr;
-  gap: 20px;
-  margin-bottom: 20px;
+  gap: 32px;
+  margin-bottom: 32px;
 }
 
 .quick-actions,
@@ -231,7 +231,7 @@ button:hover {
 }
 
 .kpi-grid {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   margin-bottom: 20px;
 }
 
@@ -253,9 +253,9 @@ button:hover {
 
 .two-column {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 20px;
-  margin-bottom: 20px;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 32px;
+  margin-bottom: 32px;
 }
 
 .card {
@@ -362,7 +362,7 @@ button:hover {
 }
 
 .segment-grid {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
 .segment-card,
@@ -384,7 +384,7 @@ button:hover {
 }
 
 .country-grid {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
 .statline {
@@ -396,21 +396,28 @@ button:hover {
 }
 
 .table-wrap {
-  overflow: auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 10px;
 }
 
 table {
   width: 100%;
+  min-width: 800px;
   border-collapse: collapse;
 }
 
 th,
 td {
   text-align: left;
-  padding: 12px 10px;
+  padding: 16px 12px;
   border-bottom: 1px solid var(--line);
   vertical-align: top;
   font-size: 0.92rem;
+}
+
+th {
+  white-space: nowrap;
 }
 
 th {
@@ -472,7 +479,7 @@ tbody tr.is-clickable {
 
 .score-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 12px;
   margin: 18px 0;
 }
