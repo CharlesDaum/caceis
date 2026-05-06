@@ -294,18 +294,23 @@ function renderQueue(records) {
   }
   body.innerHTML = records.slice(0, 25).map((record) => `
     <tr class="is-clickable ${state.selectedEmployeeId === record.employee_id ? "is-active" : ""}" data-employee-id="${record.employee_id}">
-      <td>${record.employee_id}</td>
+      <td class="cell-truncate" title="${record.employee_id}">${record.employee_id}</td>
       <td>${record.country}</td>
       <td>${record.segment}</td>
       <td>${record.absence_days}</td>
       <td><span class="${pillClass(record.risk_band)}">${record.absence_risk}%</span></td>
       <td>${record.uplift}%</td>
-      <td>
+      <td class="cell-action">
         <strong>${record.action}</strong>
         <div class="microcopy">${record.rationale}</div>
       </td>
     </tr>
   `).join("");
+}
+
+function shortId(id) {
+  if (id.length <= 20) return id;
+  return id.substring(0, 10) + '…' + id.substring(id.length - 8);
 }
 
 function renderEmployeeSelect(records) {
@@ -317,7 +322,7 @@ function renderEmployeeSelect(records) {
   }
   select.disabled = false;
   select.innerHTML = records.slice(0, 200).map((record) => `
-    <option value="${record.employee_id}">${record.employee_id} · ${record.country} · ${record.segment}</option>
+    <option value="${record.employee_id}">${shortId(record.employee_id)} · ${record.country} · ${record.segment}</option>
   `).join("");
 }
 
@@ -328,9 +333,9 @@ function renderEmployeeCard(profile) {
   }
   document.querySelector("#employee-card").innerHTML = `
     <div class="employee-head">
-      <div>
+      <div style="min-width:0">
         <p class="eyebrow">${profile.segment}</p>
-        <h3>${profile.employee_id}</h3>
+        <h3>${shortId(profile.employee_id)}</h3>
         <p class="microcopy">${profile.country} · ${profile.contract} · ${profile.age_range}</p>
       </div>
       <div><span class="${pillClass(profile.risk_band)}">${profile.risk_band} risk</span></div>
@@ -341,26 +346,26 @@ function renderEmployeeCard(profile) {
         <strong>${profile.absence_risk}%</strong>
       </div>
       <div class="score-card">
-        <span class="microcopy">Current performance potential</span>
+        <span class="microcopy">Performance</span>
         <strong>${profile.current_performance}%</strong>
       </div>
       <div class="score-card">
-        <span class="microcopy">Simulated performance potential</span>
+        <span class="microcopy">Simulated</span>
         <strong>${profile.simulated_performance}%</strong>
       </div>
     </div>
     <div class="statline"><span>Entity</span><strong>${profile.entity}</strong></div>
-    <div class="statline"><span>Current training hours</span><strong>${profile.training_hours}</strong></div>
-    <div class="statline"><span>Peer benchmark hours</span><strong>${profile.peer_training_hours}</strong></div>
+    <div class="statline"><span>Training hours</span><strong>${profile.training_hours}</strong></div>
+    <div class="statline"><span>Peer benchmark</span><strong>${profile.peer_training_hours}</strong></div>
     <div class="statline"><span>Training gap</span><strong>${profile.training_gap}</strong></div>
-    <div class="statline"><span>Tenure</span><strong>${profile.tenure_years} years</strong></div>
-    <div class="statline"><span>Recorded absence days</span><strong>${profile.absence_days}</strong></div>
-    <div class="statline"><span>Review completed</span><strong>${profile.review_completed}</strong></div>
-    <div class="score-card">
+    <div class="statline"><span>Tenure</span><strong>${profile.tenure_years} yrs</strong></div>
+    <div class="statline"><span>Absence days</span><strong>${profile.absence_days}</strong></div>
+    <div class="statline"><span>Review</span><strong>${profile.review_completed}</strong></div>
+    <div class="score-card" style="margin-top:12px">
       <span class="microcopy">Recommended action</span>
       <strong>${profile.action}</strong>
       <p class="employee-rationale">${profile.rationale}</p>
-      <p class="microcopy">Estimated upside: +${profile.uplift} percentage points in high-performer probability.</p>
+      <p class="microcopy">Estimated upside: +${profile.uplift} pts in high-performer probability.</p>
     </div>
   `;
 }
@@ -379,7 +384,7 @@ function renderExplorer(profiles, sortMode) {
   } else {
     body.innerHTML = pageRows.map((profile) => `
       <tr class="is-clickable ${state.selectedEmployeeId === profile.employee_id ? "is-active" : ""}" data-employee-id="${profile.employee_id}">
-        <td>${profile.employee_id}</td>
+        <td class="cell-truncate" title="${profile.employee_id}">${profile.employee_id}</td>
         <td>${profile.country}</td>
         <td>${profile.segment}</td>
         <td>${profile.absence_days}</td>

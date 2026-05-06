@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CACEIS Human Capital AI Command Center</title>
+    <meta name="description" content="AI-powered HR command center for absence prediction, workforce segmentation, and next-best-action recommendations.">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -39,11 +40,11 @@
         </div>
         <div class="control">
           <label for="search-filter">Employee ID</label>
-          <input id="search-filter" type="search" placeholder="Search anonymized ID">
+          <input id="search-filter" type="search" placeholder="Search ID…">
         </div>
         <div class="control control-action">
           <label>&nbsp;</label>
-          <button id="reset-filters" type="button">Reset filters</button>
+          <button id="reset-filters" type="button">Reset</button>
         </div>
       </section>
 
@@ -65,13 +66,13 @@
           </div>
           <div class="action-chip-row">
             <button class="action-chip" data-quick-filter="high-risk" type="button">Show high-risk cases</button>
-            <button class="action-chip" data-quick-filter="missing-review" type="button">Show missing reviews</button>
-            <button class="action-chip" data-quick-filter="high-upside" type="button">Show highest upside</button>
-            <button class="action-chip" data-quick-filter="clear" type="button">Back to full population</button>
+            <button class="action-chip" data-quick-filter="missing-review" type="button">Missing reviews</button>
+            <button class="action-chip" data-quick-filter="high-upside" type="button">Highest upside</button>
+            <button class="action-chip" data-quick-filter="clear" type="button">Full population</button>
           </div>
           <div id="active-filter-chips" class="active-filter-chips"></div>
           <p class="microcopy">
-            Suggested flow: filter a population, inspect the queue, then click a row to open the employee action plan.
+            Suggested flow: filter a population → inspect the queue → click a row to open the employee action plan.
           </p>
         </article>
 
@@ -89,7 +90,7 @@
             </div>
             <div class="method-step">
               <strong>2. Features</strong>
-              <p class="microcopy">The model uses tenure, training intensity, review completion, absorptive capacity, and country/contract/gender/age/entry-reason segments.</p>
+              <p class="microcopy">Tenure, training intensity, review completion, absorptive capacity, and country / contract / gender / age segments.</p>
             </div>
             <div class="method-step">
               <strong>3. Model</strong>
@@ -97,7 +98,7 @@
             </div>
             <div class="method-step">
               <strong>4. Bands</strong>
-              <p class="microcopy">The raw probability is then mapped to Low, Medium, or High risk so HR teams can prioritize action more easily.</p>
+              <p class="microcopy">The raw probability maps to Low, Medium, or High risk so HR teams can prioritize action easily.</p>
             </div>
           </div>
           <p class="microcopy" id="absence-band-summary"></p>
@@ -158,46 +159,56 @@
         <div class="country-grid" id="country-grid"></div>
       </section>
 
-      <section class="two-column">
-        <article class="card">
-          <div class="section-head">
-            <div>
-              <p class="eyebrow">Recommendations</p>
-              <h2>Priority Queue</h2>
-            </div>
-            <p class="microcopy" id="queue-count"></p>
+      <!-- Priority Queue: full width -->
+      <section class="card">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Recommendations</p>
+            <h2>Priority Queue</h2>
           </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Employee</th>
-                  <th>Country</th>
-                  <th>Segment</th>
-                  <th>Absence Days</th>
-                  <th>Absence Risk</th>
-                  <th>Upside</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="queue-body"></tbody>
-            </table>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="section-head">
-            <div>
-              <p class="eyebrow">Case Simulator</p>
-              <h2>Employee Action Planner</h2>
-            </div>
-          </div>
-          <label class="sim-label" for="employee-select">Choose a profile</label>
-          <select id="employee-select"></select>
-          <div id="employee-card" class="employee-card"></div>
-        </article>
+          <p class="microcopy" id="queue-count"></p>
+        </div>
+        <div class="table-wrap">
+          <table id="queue-table">
+            <colgroup>
+              <col style="width:14%">
+              <col style="width:10%">
+              <col style="width:14%">
+              <col style="width:9%">
+              <col style="width:10%">
+              <col style="width:8%">
+              <col style="width:35%">
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Employee</th>
+                <th>Country</th>
+                <th>Segment</th>
+                <th>Abs. Days</th>
+                <th>Risk</th>
+                <th>Upside</th>
+                <th>Recommended Action</th>
+              </tr>
+            </thead>
+            <tbody id="queue-body"></tbody>
+          </table>
+        </div>
       </section>
 
+      <!-- Employee Action Planner: full width -->
+      <section class="card">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Case Simulator</p>
+            <h2>Employee Action Planner</h2>
+          </div>
+        </div>
+        <label class="sim-label" for="employee-select">Choose a profile</label>
+        <select id="employee-select"></select>
+        <div id="employee-card" class="employee-card"></div>
+      </section>
+
+      <!-- Full Employee Browser -->
       <section class="card">
         <div class="section-head">
           <div>
@@ -215,13 +226,23 @@
           </div>
         </div>
         <div class="table-wrap">
-          <table>
+          <table id="explorer-table">
+            <colgroup>
+              <col style="width:18%">
+              <col style="width:12%">
+              <col style="width:16%">
+              <col style="width:10%">
+              <col style="width:12%">
+              <col style="width:10%">
+              <col style="width:12%">
+              <col style="width:10%">
+            </colgroup>
             <thead>
               <tr>
                 <th>Employee</th>
                 <th>Country</th>
                 <th>Segment</th>
-                <th>Absence Days</th>
+                <th>Abs. Days</th>
                 <th>Risk</th>
                 <th>Upside</th>
                 <th>Training</th>
@@ -232,9 +253,9 @@
           </table>
         </div>
         <div class="pager">
-          <button id="page-prev" type="button">Previous</button>
+          <button id="page-prev" type="button">← Previous</button>
           <p class="microcopy" id="page-status"></p>
-          <button id="page-next" type="button">Next</button>
+          <button id="page-next" type="button">Next →</button>
         </div>
       </section>
     </div>

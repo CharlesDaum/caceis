@@ -1,15 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
   --bg: #f4efe6;
-  --panel: rgba(255, 251, 245, 0.9);
+  --panel: rgba(255, 251, 245, 0.92);
   --ink: #1f2a22;
   --muted: #5e6a61;
-  --line: rgba(31, 42, 34, 0.12);
+  --line: rgba(31, 42, 34, 0.10);
   --accent: #aa6c39;
   --accent-strong: #7d4b22;
   --moss: #6b845d;
   --gold: #d7b26d;
   --danger: #b24a38;
-  --shadow: 0 18px 50px rgba(65, 43, 23, 0.1);
+  --shadow: 0 8px 32px rgba(65, 43, 23, 0.08);
+  --shadow-lg: 0 18px 50px rgba(65, 43, 23, 0.10);
+  --radius: 20px;
+  --radius-sm: 14px;
+  --gap: 24px;
+  --section-gap: 28px;
+  --transition: 200ms ease;
 }
 
 * {
@@ -18,66 +26,80 @@
 
 body {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Inter', 'Avenir Next', 'Helvetica Neue', sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at top left, rgba(215, 178, 109, 0.35), transparent 30%),
-    radial-gradient(circle at right 20%, rgba(107, 132, 93, 0.18), transparent 25%),
+    radial-gradient(circle at top left, rgba(215, 178, 109, 0.25), transparent 35%),
+    radial-gradient(circle at right 20%, rgba(107, 132, 93, 0.12), transparent 30%),
     linear-gradient(180deg, #f6f1e8 0%, #efe5d7 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* ─── Layout Shell ───────────────────────────────────── */
+
 .page-shell {
-  width: min(1280px, calc(100% - 32px));
+  width: min(1340px, calc(100% - 48px));
   margin: 0 auto;
-  padding: 32px 0 48px;
+  padding: 36px 0 64px;
 }
+
+/* ─── Glass panels ───────────────────────────────────── */
 
 .hero,
 .card,
 .controls {
   background: var(--panel);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
 }
 
+/* ─── Hero ───────────────────────────────────────────── */
+
 .hero {
   display: grid;
   grid-template-columns: 2.2fr 1fr;
-  gap: 24px;
-  border-radius: 28px;
-  padding: 32px;
-  margin-bottom: 20px;
+  gap: var(--gap);
+  border-radius: var(--radius);
+  padding: 36px;
+  margin-bottom: var(--section-gap);
 }
 
+/* ─── Typography ─────────────────────────────────────── */
+
 .eyebrow {
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  font-size: 0.70rem;
+  font-weight: 600;
   color: var(--accent-strong);
 }
 
-h1,
-h2,
-h3,
-p {
+h1, h2, h3, p {
   margin-top: 0;
 }
 
 h1 {
-  font-size: clamp(2rem, 4vw, 3.8rem);
-  line-height: 0.96;
-  margin-bottom: 14px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.8rem, 3.5vw, 3.4rem);
+  line-height: 1.0;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
 }
 
 h2 {
-  font-size: 1.4rem;
-  margin-bottom: 8px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 6px;
 }
 
 h3 {
-  font-size: 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
   margin-bottom: 10px;
 }
 
@@ -85,94 +107,117 @@ h3 {
 .microcopy,
 .metric-detail,
 .segment-description,
-.employee-rationale,
-.bullet,
-td,
-th,
-label,
-select,
-input,
-button {
-  font-family: "Avenir Next", "Helvetica Neue", sans-serif;
-}
-
-.hero-text,
-.microcopy {
+.employee-rationale {
   color: var(--muted);
   line-height: 1.55;
+  font-size: 0.88rem;
 }
 
 .hero-panel {
-  border-radius: 22px;
-  padding: 22px;
-  background: linear-gradient(160deg, rgba(170, 108, 57, 0.14), rgba(107, 132, 93, 0.08));
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  background: linear-gradient(160deg, rgba(170, 108, 57, 0.10), rgba(107, 132, 93, 0.06));
 }
 
 .hero-panel strong {
   display: block;
-  font-size: 1.8rem;
-  margin-top: 8px;
+  font-size: 1.5rem;
+  margin-top: 6px;
+  word-break: break-all;
 }
 
+/* ─── Sticky Filter Controls ────────────────────────── */
+
 .controls {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 16px;
-  border-radius: 22px;
-  padding: 18px;
-  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 14px;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: var(--section-gap);
   position: sticky;
-  top: 12px;
+  top: 0;
   z-index: 20;
+  box-shadow: 0 4px 20px rgba(65, 43, 23, 0.12);
+}
+
+.control {
+  flex: 1 1 140px;
+  min-width: 120px;
 }
 
 .control label,
 .sim-label {
   display: block;
-  font-size: 0.8rem;
-  margin-bottom: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-bottom: 6px;
   color: var(--muted);
+}
+
+.control-action {
+  flex: 0 0 auto;
+}
+
+.control-action label {
+  visibility: hidden;
+  margin-bottom: 6px;
 }
 
 select,
 input,
 button {
   width: 100%;
-  border-radius: 14px;
+  border-radius: 10px;
   border: 1px solid var(--line);
-  padding: 12px 14px;
-  background: rgba(255, 255, 255, 0.72);
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.75);
   color: var(--ink);
+  font-family: inherit;
+  font-size: 0.85rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+select:focus,
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(170, 108, 57, 0.12);
 }
 
 button {
   cursor: pointer;
   font-weight: 600;
+  transition: background var(--transition), transform var(--transition);
 }
 
 button:hover {
-  background: rgba(170, 108, 57, 0.1);
+  background: rgba(170, 108, 57, 0.10);
 }
 
-.control-action {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+button:active {
+  transform: scale(0.97);
 }
+
+/* ─── Scope Bar ──────────────────────────────────────── */
 
 .scope-bar {
   display: flex;
   justify-content: space-between;
-  align-items: end;
-  gap: 18px;
-  margin-bottom: 20px;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  margin-bottom: var(--section-gap);
 }
+
+/* ─── Assist Grid (Quick Actions + Methodology) ──────── */
 
 .assist-grid {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 32px;
-  margin-bottom: 32px;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  margin-bottom: var(--section-gap);
 }
 
 .quick-actions,
@@ -180,47 +225,68 @@ button:hover {
   min-height: 100%;
 }
 
-.action-chip-row,
+.action-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
 .active-filter-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .action-chip {
   width: auto;
   border-radius: 999px;
-  padding: 10px 16px;
-  background: rgba(255, 255, 255, 0.82);
+  padding: 8px 16px;
+  font-size: 0.82rem;
+  background: rgba(255, 255, 255, 0.80);
+  border: 1px solid var(--line);
+  transition: background var(--transition), border-color var(--transition);
 }
 
 .action-chip:hover {
-  background: rgba(170, 108, 57, 0.16);
+  background: rgba(170, 108, 57, 0.12);
+  border-color: var(--accent);
 }
 
 .filter-chip {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
+  gap: 6px;
+  padding: 6px 12px;
   border-radius: 999px;
   background: rgba(107, 132, 93, 0.12);
-  font-family: "Avenir Next", "Helvetica Neue", sans-serif;
-  font-size: 0.84rem;
+  font-size: 0.80rem;
+  font-weight: 500;
 }
+
+/* ─── Methodology Steps ──────────────────────────────── */
 
 .method-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 
 .method-step {
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: var(--radius-sm);
   padding: 14px;
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.50);
 }
+
+.method-step strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+
+/* ─── KPI Cards ──────────────────────────────────────── */
 
 .kpi-grid,
 .segment-grid,
@@ -232,35 +298,56 @@ button:hover {
 
 .kpi-grid {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  margin-bottom: 20px;
+  margin-bottom: var(--section-gap);
 }
 
 .kpi-card,
 .segment-card,
 .country-card,
 .model-card {
-  border-radius: 22px;
+  border-radius: var(--radius-sm);
   padding: 18px;
-  background: rgba(255, 255, 255, 0.68);
+  background: rgba(255, 255, 255, 0.65);
   border: 1px solid var(--line);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.kpi-card:hover,
+.segment-card:hover,
+.country-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(65, 43, 23, 0.10);
 }
 
 .kpi-value {
   display: block;
-  font-size: 2rem;
-  margin: 6px 0 10px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 4px 0 8px;
+  letter-spacing: -0.02em;
 }
+
+.metric-detail {
+  font-size: 0.78rem;
+  margin-bottom: 0;
+}
+
+/* ─── Two-column layouts ─────────────────────────────── */
 
 .two-column {
   display: grid;
-  grid-template-columns: 1.3fr 0.7fr;
-  gap: 32px;
-  margin-bottom: 32px;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  margin-bottom: var(--section-gap);
 }
 
+/* ─── Cards ──────────────────────────────────────────── */
+
 .card {
-  border-radius: 28px;
+  border-radius: var(--radius);
   padding: 24px;
+  margin-bottom: 0;
+  overflow: hidden;
 }
 
 .section-head {
@@ -271,37 +358,35 @@ button:hover {
   margin-bottom: 18px;
 }
 
+/* ─── Table toolbar ──────────────────────────────────── */
+
 .table-toolbar {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 .table-toolbar label {
   margin: 0;
   white-space: nowrap;
+  font-size: 0.82rem;
 }
 
 .table-toolbar select {
-  min-width: 220px;
+  min-width: 200px;
 }
+
+/* ─── Metric & Fairness rows ─────────────────────────── */
 
 .metric-list,
 .fairness-grid {
   display: grid;
-  gap: 16px;
-}
-
-.empty-state {
-  padding: 18px;
-  border-radius: 18px;
-  border: 1px dashed var(--line);
-  color: var(--muted);
-  font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+  gap: 14px;
 }
 
 .fairness-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   margin-top: 18px;
 }
 
@@ -310,47 +395,64 @@ button:hover {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 12px;
-  padding: 10px 0;
+  padding: 8px 0;
   border-bottom: 1px solid var(--line);
+  font-size: 0.88rem;
 }
+
+.empty-state {
+  padding: 20px;
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--line);
+  color: var(--muted);
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+/* ─── Distribution bars ──────────────────────────────── */
 
 .distribution {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .distribution-row {
   display: grid;
-  grid-template-columns: 120px 1fr auto;
+  grid-template-columns: 80px 1fr 50px;
   align-items: center;
   gap: 12px;
+  font-size: 0.88rem;
 }
+
+/* ─── Driver rows (feature importance) ───────────────── */
 
 .driver-row {
   display: grid;
-  grid-template-columns: minmax(150px, 220px) minmax(0, 1fr) 80px;
+  grid-template-columns: minmax(140px, 200px) minmax(0, 1fr) 60px;
   align-items: center;
-  gap: 12px;
-  padding: 6px 0;
+  gap: 10px;
+  padding: 5px 0;
 }
 
 .driver-label {
-  font-family: "Avenir Next", "Helvetica Neue", sans-serif;
-  font-size: 0.92rem;
+  font-size: 0.85rem;
   color: var(--ink);
   overflow-wrap: anywhere;
-  line-height: 1.25;
+  line-height: 1.3;
 }
 
 .driver-value {
   text-align: right;
   font-variant-numeric: tabular-nums;
+  font-size: 0.85rem;
 }
 
+/* ─── Progress bars ──────────────────────────────────── */
+
 .bar {
-  height: 12px;
+  height: 10px;
   border-radius: 999px;
-  background: rgba(31, 42, 34, 0.08);
+  background: rgba(31, 42, 34, 0.07);
   overflow: hidden;
 }
 
@@ -359,70 +461,90 @@ button:hover {
   height: 100%;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--accent), var(--gold));
+  transition: width 400ms ease;
 }
 
+/* ─── Segment & Country grids ────────────────────────── */
+
 .segment-grid {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
 .segment-card,
 .country-card,
 .employee-card {
   position: relative;
-  overflow: hidden;
 }
 
 .segment-card::after,
-.country-card::after,
-.employee-card::after {
+.country-card::after {
   content: "";
   position: absolute;
   inset: auto -20% -40% auto;
-  width: 140px;
-  height: 140px;
-  background: radial-gradient(circle, rgba(215, 178, 109, 0.22), transparent 70%);
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(215, 178, 109, 0.18), transparent 70%);
+  pointer-events: none;
 }
 
 .country-grid {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
+
+/* ─── Stat lines ─────────────────────────────────────── */
 
 .statline {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 12px;
-  padding: 8px 0;
+  padding: 7px 0;
   border-bottom: 1px solid var(--line);
+  font-size: 0.88rem;
 }
+
+.statline strong {
+  text-align: right;
+  word-break: break-word;
+  max-width: 60%;
+}
+
+/* ─── Tables ─────────────────────────────────────────── */
 
 .table-wrap {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  margin-bottom: 10px;
+  margin: 0 -4px;
+  padding: 0 4px;
 }
 
 table {
   width: 100%;
-  min-width: 800px;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 th,
 td {
   text-align: left;
-  padding: 16px 12px;
+  padding: 12px 10px;
   border-bottom: 1px solid var(--line);
-  vertical-align: top;
-  font-size: 0.92rem;
+  vertical-align: middle;
+  font-size: 0.84rem;
+  line-height: 1.4;
 }
 
 th {
   white-space: nowrap;
-}
-
-th {
   color: var(--muted);
   font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  position: sticky;
+  top: 0;
+  background: var(--panel);
+  z-index: 2;
 }
 
 tbody tr {
@@ -430,77 +552,135 @@ tbody tr {
 }
 
 tbody tr:hover {
-  background: rgba(170, 108, 57, 0.07);
+  background: rgba(170, 108, 57, 0.06);
 }
 
 tbody tr.is-active {
-  background: rgba(170, 108, 57, 0.12);
+  background: rgba(170, 108, 57, 0.10);
 }
 
 tbody tr.is-clickable {
   cursor: pointer;
 }
 
+/* Truncate employee IDs and long text cells */
+td.cell-truncate {
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Action column: allow wrapping but cap height */
+td.cell-action {
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+td.cell-action strong {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.82rem;
+}
+
+td.cell-action .microcopy {
+  font-size: 0.76rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ─── Risk pills ─────────────────────────────────────── */
+
 .pill {
   display: inline-flex;
   align-items: center;
-  padding: 5px 10px;
+  padding: 4px 10px;
   border-radius: 999px;
   font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
   background: rgba(107, 132, 93, 0.12);
   color: var(--ink);
 }
 
 .pill.high {
-  background: rgba(178, 74, 56, 0.12);
+  background: rgba(178, 74, 56, 0.14);
   color: var(--danger);
 }
 
 .pill.medium {
-  background: rgba(170, 108, 57, 0.12);
+  background: rgba(170, 108, 57, 0.14);
   color: var(--accent-strong);
 }
 
+/* ─── Employee Card (sidebar) ────────────────────────── */
+
 .employee-card {
-  margin-top: 16px;
-  min-height: 430px;
-  border-radius: 22px;
+  margin-top: 14px;
+  border-radius: var(--radius-sm);
   padding: 20px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(244, 239, 230, 0.92));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(244, 239, 230, 0.90));
   border: 1px solid var(--line);
+  overflow: visible;
 }
 
 .employee-head {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 16px;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.employee-head h3 {
+  font-size: 0.95rem;
+  word-break: break-all;
+  line-height: 1.3;
+}
+
+#employee-select {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .score-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 12px;
-  margin: 18px 0;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 14px 0;
 }
 
 .score-card {
-  border-radius: 18px;
-  padding: 14px;
-  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.70);
   border: 1px solid var(--line);
+  text-align: center;
+}
+
+.score-card .microcopy {
+  font-size: 0.72rem;
+  margin-bottom: 2px;
 }
 
 .score-card strong {
   display: block;
-  font-size: 1.5rem;
-  margin-top: 4px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-top: 2px;
 }
 
 .employee-rationale {
   color: var(--muted);
-  line-height: 1.55;
+  line-height: 1.5;
+  font-size: 0.84rem;
 }
+
+/* ─── Pager ──────────────────────────────────────────── */
 
 .pager {
   display: flex;
@@ -508,38 +688,67 @@ tbody tr.is-clickable {
   align-items: center;
   gap: 12px;
   margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
 }
 
 .pager button {
   width: auto;
-  min-width: 120px;
+  min-width: 110px;
+  padding: 8px 16px;
+  font-size: 0.84rem;
 }
+
+.pager button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.pager .microcopy {
+  font-size: 0.82rem;
+  margin: 0;
+}
+
+/* ─── Section spacing for standalone cards ───────────── */
+
+.page-shell > section.card {
+  margin-bottom: var(--section-gap);
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
 
 @media (max-width: 1100px) {
   .hero,
   .two-column,
-  .controls,
-  .scope-bar,
   .assist-grid,
-  .kpi-grid,
-  .segment-grid,
-  .country-grid,
   .fairness-grid {
     grid-template-columns: 1fr;
+  }
+
+  .score-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 720px) {
   .page-shell {
-    width: min(100% - 18px, 1280px);
+    width: calc(100% - 20px);
     padding-top: 18px;
   }
 
   .hero,
   .card,
   .controls {
-    padding: 18px;
-    border-radius: 20px;
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .controls {
+    gap: 10px;
+  }
+
+  .control {
+    flex: 1 1 100%;
   }
 
   .method-grid {
@@ -547,11 +756,7 @@ tbody tr.is-clickable {
   }
 
   .driver-row {
-    grid-template-columns: 1fr;
-  }
-
-  .driver-value {
-    text-align: left;
+    grid-template-columns: 1fr 1fr 50px;
   }
 
   .score-grid {
